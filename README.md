@@ -23,9 +23,18 @@ Add your Gemini API key to `.env`:
 
 ```bash
 VITE_GEMINI_API_KEY=your_api_key_here
+VITE_GEMINI_MODEL=gemini-2.5-flash
 ```
 
 The visual hero is built natively with React, Tailwind, and Framer Motion. No Spline key or embed is required.
+
+For stronger reasoning, you can switch the model to:
+
+```bash
+VITE_GEMINI_MODEL=gemini-2.5-pro
+```
+
+`gemini-2.5-flash` is better for speed and cost. `gemini-2.5-pro` is better for deeper reasoning, but it is typically slower and more expensive.
 
 ## Scripts
 
@@ -93,4 +102,18 @@ src/
 /checklist
 ```
 
-`App.jsx` only mounts `BrowserRouter`, the shared `PrepProvider`, and `AppRouter`. Feature sections live in dedicated page components.
+`App.jsx` only mounts `HashRouter`, the shared `PrepProvider`, and `AppRouter`. Feature sections live in dedicated page components. `HashRouter` is used so the routed app deploys cleanly on GitHub Pages without server-side rewrite rules.
+
+## GitHub Actions Secrets
+
+For the GitHub Pages workflow in [.github/workflows/deploy.yml](/C:/Users/admin/Documents/Practics-website/.github/workflows/deploy.yml), add:
+
+- Repository secret: `VITE_GEMINI_API_KEY`
+- Repository variable: `VITE_GEMINI_MODEL`
+  Example: `gemini-2.5-flash` or `gemini-2.5-pro`
+
+Important:
+
+- `GITHUB_TOKEN` is already provided automatically by GitHub Actions for deployment. You do not need to create it manually.
+- `VITE_` variables are bundled into the frontend. That means the Gemini key is exposed in the deployed client app.
+- For a real production-secure setup, move Gemini requests to a backend and keep the API key server-side only.
