@@ -51,6 +51,27 @@ export function PrepProvider({ children }) {
 
   const notify = (message, type = 'info') => setToast({ message, type });
 
+  const copyGeneratedText = async (text, label = 'content') => {
+    if (!text?.trim()) {
+      notify(`No ${label} available to copy.`, 'error');
+      return false;
+    }
+
+    if (typeof window === 'undefined' || !window.navigator?.clipboard) {
+      notify('Copy is not available in this browser right now.', 'error');
+      return false;
+    }
+
+    try {
+      await window.navigator.clipboard.writeText(text);
+      notify(`${label.charAt(0).toUpperCase() + label.slice(1)} copied.`, 'success');
+      return true;
+    } catch {
+      notify('Copy failed. Please try again.', 'error');
+      return false;
+    }
+  };
+
   const runGemini = async ({ key, prompt, systemPrompt, onSuccess }) => {
     try {
       const result = await gemini.generate({ key, prompt, systemPrompt });
@@ -162,6 +183,7 @@ Cover the selected language, frontend framework, backend framework, core topic, 
     code,
     concept,
     conceptOutput,
+    copyGeneratedText,
     darkMode,
     gemini,
     handleCodeReview,

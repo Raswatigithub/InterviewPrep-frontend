@@ -1,5 +1,6 @@
 import { Bug, Gauge, Lightbulb } from 'lucide-react';
 import Button from './ui/Button';
+import CopyButton from './ui/CopyButton';
 
 const actions = [
   {
@@ -26,6 +27,7 @@ export default function CodeReviewPanel({
   code,
   isLoading,
   onCodeChange,
+  onCopy,
   onSubmit,
   output,
 }) {
@@ -57,7 +59,12 @@ export default function CodeReviewPanel({
           ))}
         </div>
         {output ? (
-          <div className="output-panel">{output}</div>
+          <div className="space-y-3">
+            <div className="flex justify-end">
+              <CopyButton label="Copy Review" onCopy={() => onCopy(output, 'code review')} />
+            </div>
+            <div className="output-panel">{output}</div>
+          </div>
         ) : (
           <p className="rounded-lg border border-dashed border-stone-300 p-5 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
             Paste code and choose a review mode to get targeted guidance.

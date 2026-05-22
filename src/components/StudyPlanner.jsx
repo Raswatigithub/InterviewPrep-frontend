@@ -1,5 +1,6 @@
 import { CalendarDays } from 'lucide-react';
 import Button from './ui/Button';
+import CopyButton from './ui/CopyButton';
 
 export default function StudyPlanner({
   days,
@@ -7,6 +8,7 @@ export default function StudyPlanner({
   isLoading,
   onDaysChange,
   onHoursChange,
+  onCopy,
   onSubmit,
   output,
 }) {
@@ -43,7 +45,12 @@ export default function StudyPlanner({
         Generate Schedule
       </Button>
       {output ? (
-        <div className="output-panel mt-4">{output}</div>
+        <div className="mt-4 space-y-3">
+          <div className="flex justify-end">
+            <CopyButton label="Copy Plan" onCopy={() => onCopy(output, 'study plan')} />
+          </div>
+          <div className="output-panel">{output}</div>
+        </div>
       ) : (
         <p className="mt-4 rounded-lg border border-dashed border-stone-300 p-5 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
           Fill in your availability to generate a focused plan.

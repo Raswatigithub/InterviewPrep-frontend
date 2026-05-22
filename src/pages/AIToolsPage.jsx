@@ -11,6 +11,7 @@ export default function AIToolsPage() {
     code,
     concept,
     conceptOutput,
+    copyGeneratedText,
     gemini,
     handleCodeReview,
     handleExplainConcept,
@@ -35,6 +36,7 @@ export default function AIToolsPage() {
           code={code}
           isLoading={gemini.isLoading}
           onCodeChange={setCode}
+          onCopy={copyGeneratedText}
           onSubmit={handleCodeReview}
           output={reviewOutput}
         />
@@ -48,6 +50,7 @@ export default function AIToolsPage() {
           concept={concept}
           isLoading={gemini.isLoading('eli5')}
           onConceptChange={setConcept}
+          onCopy={copyGeneratedText}
           onSubmit={handleExplainConcept}
           output={conceptOutput}
         />
@@ -63,6 +66,7 @@ export default function AIToolsPage() {
           isLoading={gemini.isLoading('planner')}
           onDaysChange={setPlannerDays}
           onHoursChange={setPlannerHours}
+          onCopy={copyGeneratedText}
           onSubmit={handleGeneratePlan}
           output={plannerOutput}
         />

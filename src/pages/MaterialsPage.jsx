@@ -8,6 +8,7 @@ const validTabs = ['practice-question', 'question-bank'];
 export default function MaterialsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const {
+    copyGeneratedText,
     gemini,
     questionBankOutput,
     questionOutput,
@@ -26,6 +27,7 @@ export default function MaterialsPage() {
     <StudyMaterialWorkspace
       activeTab={activeTab}
       focusSummary={studyFocusSummary}
+      onCopy={copyGeneratedText}
       onTabChange={(nextTab) => setSearchParams({ tab: nextTab })}
       practiceQuestion={questionOutput}
       practiceQuestionLoading={gemini.isLoading('question')}

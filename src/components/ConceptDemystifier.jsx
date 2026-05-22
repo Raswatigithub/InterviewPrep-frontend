@@ -1,10 +1,12 @@
 import { WandSparkles } from 'lucide-react';
 import Button from './ui/Button';
+import CopyButton from './ui/CopyButton';
 
 export default function ConceptDemystifier({
   concept,
   isLoading,
   onConceptChange,
+  onCopy,
   onSubmit,
   output,
 }) {
@@ -30,7 +32,12 @@ export default function ConceptDemystifier({
           Explain Like I am 5
         </Button>
         {output ? (
-          <div className="output-panel">{output}</div>
+          <div className="space-y-3">
+            <div className="flex justify-end">
+              <CopyButton label="Copy Explanation" onCopy={() => onCopy(output, 'explanation')} />
+            </div>
+            <div className="output-panel">{output}</div>
+          </div>
         ) : (
           <p className="rounded-lg border border-dashed border-stone-300 p-5 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
             Enter a concept to get a short analogy-based explanation.

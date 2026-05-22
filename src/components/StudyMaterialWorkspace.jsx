@@ -1,6 +1,7 @@
 import { BookOpen, ClipboardList, FileQuestion, Loader2 } from 'lucide-react';
 import { cn } from '../utils/cn';
 import Card from './ui/Card';
+import CopyButton from './ui/CopyButton';
 
 const materialTabs = [
   {
@@ -15,7 +16,7 @@ const materialTabs = [
   },
 ];
 
-function MaterialPanel({ isLoading, output, emptyText }) {
+function MaterialPanel({ copyLabel, isLoading, onCopy, output, emptyText }) {
   if (isLoading) {
     return (
       <div className="flex min-h-[280px] flex-col items-center justify-center rounded-xl border border-dashed border-teal-200 bg-teal-50/70 p-8 text-center dark:border-teal-900 dark:bg-teal-950/20">
@@ -44,11 +45,19 @@ function MaterialPanel({ isLoading, output, emptyText }) {
     );
   }
 
-  return <article className="output-panel max-h-[620px] overflow-y-auto">{output}</article>;
+  return (
+    <div className="space-y-3">
+      <div className="flex justify-end">
+        <CopyButton label={copyLabel} onCopy={onCopy} />
+      </div>
+      <article className="output-panel max-h-[620px] overflow-y-auto">{output}</article>
+    </div>
+  );
 }
 
 export default function StudyMaterialWorkspace({
   activeTab,
+  onCopy,
   focusSummary,
   onTabChange,
   practiceQuestion,
@@ -122,8 +131,10 @@ export default function StudyMaterialWorkspace({
             tabIndex={0}
           >
             <MaterialPanel
+              copyLabel="Copy Question"
               emptyText="Select a syllabus domain and click Generate Practice Question."
               isLoading={practiceQuestionLoading}
+              onCopy={() => onCopy(practiceQuestion, 'practice question')}
               output={practiceQuestion}
             />
           </div>
@@ -135,8 +146,10 @@ export default function StudyMaterialWorkspace({
             tabIndex={0}
           >
             <MaterialPanel
+              copyLabel="Copy Bank"
               emptyText="Choose your study focus and click Generate Question Bank."
               isLoading={questionBankLoading}
+              onCopy={() => onCopy(questionBank, 'question bank')}
               output={questionBank}
             />
           </div>
