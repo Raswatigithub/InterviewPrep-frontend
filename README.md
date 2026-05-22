@@ -9,26 +9,27 @@ A production-ready React + Vite conversion of the original single-file exam prep
 - Tailwind CSS
 - Chart.js + react-chartjs-2
 - Framer Motion
-- Spring Boot backend for authentication and AI proxying
+- Gemini API via `VITE_GEMINI_API_KEY`
 
 ## Setup
 
 ```bash
 npm install
-cp .env.development.example .env
+cp .env.example .env
 npm run dev
 ```
 
-Add your backend API URL to `.env`:
+Add your Gemini API config to `.env`:
 
 ```bash
-VITE_API_BASE_URL=http://localhost:5000
+VITE_GEMINI_API_KEY=your_api_key_here
+VITE_GEMINI_MODEL=gemini-2.5-flash
 ```
 
-For production builds:
+For stronger reasoning, you can switch the model to:
 
 ```bash
-VITE_API_BASE_URL=https://your-backend-service.onrender.com
+VITE_GEMINI_MODEL=gemini-2.5-pro
 ```
 
 The visual hero is built natively with React, Tailwind, and Framer Motion. No Spline key or embed is required.
@@ -105,14 +106,15 @@ src/
 
 For the GitHub Pages workflow in [.github/workflows/deploy.yml](/C:/Users/admin/Documents/Practics-website/.github/workflows/deploy.yml), add:
 
-- Repository variable: `VITE_API_BASE_URL`
-  Example: `https://your-backend-domain.com`
+- Repository secret: `VITE_GEMINI_API_KEY`
+- Repository variable: `VITE_GEMINI_MODEL`
+  Example: `gemini-2.5-flash` or `gemini-2.5-pro`
 
 Important:
 
 - `GITHUB_TOKEN` is already provided automatically by GitHub Actions for deployment. You do not need to create it manually.
-- The frontend now calls the backend for AI generation through `VITE_API_BASE_URL`.
-- Store `GEMINI_API_KEY` and `GEMINI_MODEL` only in the backend environment.
+- `VITE_` variables are bundled into the frontend. That means the Gemini key is exposed in the deployed client app.
+- For a real production-secure setup, move Gemini requests to a backend and keep the API key server-side only.
 
 ## Backend Planning
 
