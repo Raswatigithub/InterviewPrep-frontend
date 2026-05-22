@@ -19,12 +19,14 @@ cp .env.example .env
 npm run dev
 ```
 
-Add your Gemini API config to `.env`:
+Add your Gemini API key to `.env`:
 
 ```bash
 VITE_GEMINI_API_KEY=your_api_key_here
 VITE_GEMINI_MODEL=gemini-2.5-flash
 ```
+
+The visual hero is built natively with React, Tailwind, and Framer Motion. No Spline key or embed is required.
 
 For stronger reasoning, you can switch the model to:
 
@@ -32,7 +34,7 @@ For stronger reasoning, you can switch the model to:
 VITE_GEMINI_MODEL=gemini-2.5-pro
 ```
 
-The visual hero is built natively with React, Tailwind, and Framer Motion. No Spline key or embed is required.
+`gemini-2.5-flash` is better for speed and cost. `gemini-2.5-pro` is better for deeper reasoning, but it is typically slower and more expensive.
 
 ## Scripts
 
@@ -115,11 +117,3 @@ Important:
 - `GITHUB_TOKEN` is already provided automatically by GitHub Actions for deployment. You do not need to create it manually.
 - `VITE_` variables are bundled into the frontend. That means the Gemini key is exposed in the deployed client app.
 - For a real production-secure setup, move Gemini requests to a backend and keep the API key server-side only.
-
-## Backend Planning
-
-The login-first backend plan is documented in [BACKEND_PREPARATION_GUIDE.md](/C:/Users/admin/Documents/Practics-website/BACKEND_PREPARATION_GUIDE.md).
-
-The backend CI/CD setup guide is documented in [BACKEND_CICD_GUIDE.md](/C:/Users/admin/Documents/Practics-website/BACKEND_CICD_GUIDE.md).
-
-The Spring Boot backend module lives in [backend/README.md](/C:/Users/admin/Documents/Practics-website/backend/README.md).

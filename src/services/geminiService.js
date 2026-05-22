@@ -1,5 +1,6 @@
 const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models';
 const DEFAULT_MODEL = 'gemini-2.5-flash';
+
 const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
 export async function callGemini({
