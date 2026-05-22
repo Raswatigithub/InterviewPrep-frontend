@@ -9,32 +9,29 @@ A production-ready React + Vite conversion of the original single-file exam prep
 - Tailwind CSS
 - Chart.js + react-chartjs-2
 - Framer Motion
-- Gemini API via `VITE_GEMINI_API_KEY`
+- Spring Boot backend for authentication and AI proxying
 
 ## Setup
 
 ```bash
 npm install
-cp .env.example .env
+cp .env.development.example .env
 npm run dev
 ```
 
-Add your Gemini API key to `.env`:
+Add your backend API URL to `.env`:
 
 ```bash
-VITE_GEMINI_API_KEY=your_api_key_here
-VITE_GEMINI_MODEL=gemini-2.5-flash
+VITE_API_BASE_URL=http://localhost:5000
+```
+
+For production builds:
+
+```bash
+VITE_API_BASE_URL=https://your-backend-service.onrender.com
 ```
 
 The visual hero is built natively with React, Tailwind, and Framer Motion. No Spline key or embed is required.
-
-For stronger reasoning, you can switch the model to:
-
-```bash
-VITE_GEMINI_MODEL=gemini-2.5-pro
-```
-
-`gemini-2.5-flash` is better for speed and cost. `gemini-2.5-pro` is better for deeper reasoning, but it is typically slower and more expensive.
 
 ## Scripts
 
@@ -108,12 +105,19 @@ src/
 
 For the GitHub Pages workflow in [.github/workflows/deploy.yml](/C:/Users/admin/Documents/Practics-website/.github/workflows/deploy.yml), add:
 
-- Repository secret: `VITE_GEMINI_API_KEY`
-- Repository variable: `VITE_GEMINI_MODEL`
-  Example: `gemini-2.5-flash` or `gemini-2.5-pro`
+- Repository variable: `VITE_API_BASE_URL`
+  Example: `https://your-backend-domain.com`
 
 Important:
 
 - `GITHUB_TOKEN` is already provided automatically by GitHub Actions for deployment. You do not need to create it manually.
-- `VITE_` variables are bundled into the frontend. That means the Gemini key is exposed in the deployed client app.
-- For a real production-secure setup, move Gemini requests to a backend and keep the API key server-side only.
+- The frontend now calls the backend for AI generation through `VITE_API_BASE_URL`.
+- Store `GEMINI_API_KEY` and `GEMINI_MODEL` only in the backend environment.
+
+## Backend Planning
+
+The login-first backend plan is documented in [BACKEND_PREPARATION_GUIDE.md](/C:/Users/admin/Documents/Practics-website/BACKEND_PREPARATION_GUIDE.md).
+
+The backend CI/CD setup guide is documented in [BACKEND_CICD_GUIDE.md](/C:/Users/admin/Documents/Practics-website/BACKEND_CICD_GUIDE.md).
+
+The Spring Boot backend module lives in [backend/README.md](/C:/Users/admin/Documents/Practics-website/backend/README.md).
