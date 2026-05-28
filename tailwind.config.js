@@ -8,7 +8,7 @@ export default {
         soft: '0 12px 30px rgba(41, 37, 36, 0.08)',
       },
       fontFamily: {
-        sans: ['Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       keyframes: {
         fadeIn: {

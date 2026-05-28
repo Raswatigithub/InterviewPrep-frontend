@@ -92,12 +92,21 @@ export function PrepProvider({ children }) {
     setQuestionOutput('');
     runGemini({
       key: 'question',
-      prompt: `Generate one challenging interview question for a Full-Stack developer role.
+      prompt: `Generate one polished interview-preparation item for a Full-Stack developer.
 
 Syllabus domain: ${selectedDomain}
 Selected study focus: ${studyFocusSummary}
 
-The question should match the selected difficulty and question type when possible. Make it suitable for a proctored exam. Provide the answer or key points briefly after the question.`,
+Requirements:
+1. Start with a clear title line
+2. Write one realistic interview question aligned to the selected stack
+3. Match the selected difficulty and question type when possible
+4. Add "Why interviewers ask this"
+5. Add "Strong answer points" with 4-6 bullets
+6. Add "Common mistakes to avoid" with 2-4 bullets
+7. Add one short follow-up question
+
+Keep it practical, concise, and interview-specific. Do not give generic advice.`,
       systemPrompt: 'You are a strict technical recruiter for a high-performance software company.',
       onSuccess: setQuestionOutput,
     });
@@ -112,15 +121,22 @@ The question should match the selected difficulty and question type when possibl
 
 ${studyFocusSummary}
 
-Create 8 interview questions. For each question include:
-1. Question
-2. Expected answer points
-3. Difficulty level
-4. Tags
-5. Follow-up questions
-6. Suggested practice task
+Create 8 realistic interview questions an interviewer might ask for this exact preparation path.
 
-Keep the output clean, practical, and useful for a developer preparing for interviews. Avoid generic advice. Focus on questions an interviewer might realistically ask.`,
+For each item, include these sections in order:
+1. Question
+2. Why it gets asked
+3. Expected answer points
+4. Difficulty level
+5. Tags
+6. Follow-up question
+7. Suggested practice task
+
+Constraints:
+- Keep the questions specific to the selected language, frameworks, and topic
+- Blend conceptual and practical interview scenarios when appropriate
+- Avoid repeating the same question pattern
+- Write in a polished, study-friendly format with strong spacing between questions`,
       systemPrompt:
         'You are a senior technical interviewer creating practical interview preparation material for software developers.',
       onSuccess: setQuestionBankOutput,
@@ -163,15 +179,31 @@ Keep the output clean, practical, and useful for a developer preparing for inter
       return;
     }
 
+    navigate('/materials?tab=study-plan');
     setPlannerOutput('');
     runGemini({
       key: 'planner',
-      prompt: `Create a high-level study schedule for a Full-Stack developer exam.
+      prompt: `Create a personalized interview study plan for a software developer.
 
 Selected study focus: ${studyFocusSummary}
 I have ${plannerDays} days left and can study ${plannerHours} hours per day.
 
-Cover the selected language, frontend framework, backend framework, core topic, and difficulty level. Output a clean, readable text format with bullet points.`,
+Build a realistic day-by-day plan that helps the user prepare for likely interviews on this stack.
+
+Output format:
+1. Preparation Summary
+2. Priority Topics
+3. Day-by-day schedule
+4. Practice question checkpoints
+5. Revision strategy
+6. Final mock interview plan
+
+Rules:
+- Tailor the plan to the selected language, frameworks, topic, difficulty, and question type
+- Keep each day practical for the available study hours
+- Include focused revision and interview practice
+- Highlight what should be prioritized if time runs short
+- Use clean headings and bullets so it reads like a real preparation guide`,
       systemPrompt: 'You are an expert technical study planner.',
       onSuccess: setPlannerOutput,
     });

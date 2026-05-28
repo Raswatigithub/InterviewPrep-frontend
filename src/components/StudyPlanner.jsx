@@ -1,6 +1,5 @@
 import { CalendarDays } from 'lucide-react';
 import Button from './ui/Button';
-import CopyButton from './ui/CopyButton';
 
 export default function StudyPlanner({
   days,
@@ -8,9 +7,7 @@ export default function StudyPlanner({
   isLoading,
   onDaysChange,
   onHoursChange,
-  onCopy,
   onSubmit,
-  output,
 }) {
   return (
     <section className="animate-fadeIn" aria-labelledby="planner-title">
@@ -19,7 +16,8 @@ export default function StudyPlanner({
         Personalized Study Planner
       </h3>
       <p className="mb-4 text-stone-600 dark:text-stone-300">
-        Generate a custom schedule based on your timeline and daily availability.
+        Generate a custom, interview-focused schedule based on your selected stack, timeline, and
+        daily availability.
       </p>
       <div className="mb-4 grid gap-4 sm:grid-cols-2">
         <input
@@ -44,18 +42,10 @@ export default function StudyPlanner({
       <Button className="w-full" icon={CalendarDays} isLoading={isLoading} onClick={onSubmit} variant="amber">
         Generate Schedule
       </Button>
-      {output ? (
-        <div className="mt-4 space-y-3">
-          <div className="flex justify-end">
-            <CopyButton label="Copy Plan" onCopy={() => onCopy(output, 'study plan')} />
-          </div>
-          <div className="output-panel">{output}</div>
-        </div>
-      ) : (
-        <p className="mt-4 rounded-lg border border-dashed border-stone-300 p-5 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
-          Fill in your availability to generate a focused plan.
-        </p>
-      )}
+      <p className="mt-4 rounded-lg border border-dashed border-amber-300 bg-amber-50/70 p-5 text-sm text-amber-800 dark:border-amber-900/70 dark:bg-amber-950/30 dark:text-amber-200">
+        Your generated schedule opens in the Study Material Workspace, where you can review and
+        copy it without losing your planner setup.
+      </p>
     </section>
   );
 }

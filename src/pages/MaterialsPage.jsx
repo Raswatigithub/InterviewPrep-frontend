@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import StudyMaterialWorkspace from '../components/StudyMaterialWorkspace';
 import { usePrep } from '../context/usePrep';
 
-const validTabs = ['practice-question', 'question-bank'];
+const validTabs = ['practice-question', 'question-bank', 'study-plan'];
 
 export default function MaterialsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -12,6 +12,7 @@ export default function MaterialsPage() {
     gemini,
     questionBankOutput,
     questionOutput,
+    plannerOutput,
     studyFocusSummary,
   } = usePrep();
   const tabParam = searchParams.get('tab');
@@ -33,6 +34,8 @@ export default function MaterialsPage() {
       practiceQuestionLoading={gemini.isLoading('question')}
       questionBank={questionBankOutput}
       questionBankLoading={gemini.isLoading('question-bank')}
+      studyPlan={plannerOutput}
+      studyPlanLoading={gemini.isLoading('planner')}
     />
   );
 }

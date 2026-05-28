@@ -1,4 +1,4 @@
-import { BookOpen, ClipboardList, FileQuestion, Loader2 } from 'lucide-react';
+import { BookOpen, CalendarRange, ClipboardList, FileQuestion, Loader2 } from 'lucide-react';
 import { cn } from '../utils/cn';
 import Card from './ui/Card';
 import CopyButton from './ui/CopyButton';
@@ -14,13 +14,24 @@ const materialTabs = [
     label: 'Question Bank',
     icon: ClipboardList,
   },
+  {
+    id: 'study-plan',
+    label: 'Study Plan',
+    icon: CalendarRange,
+  },
 ];
 
-function MaterialPanel({ copyLabel, isLoading, onCopy, output, emptyText }) {
+function MaterialPanel({ copyLabel, emptyText, heading, isLoading, onCopy, output, tone = 'teal' }) {
+  const loadingTone =
+    tone === 'amber'
+      ? 'border-amber-200 bg-amber-50/70 dark:border-amber-900 dark:bg-amber-950/20'
+      : 'border-teal-200 bg-teal-50/70 dark:border-teal-900 dark:bg-teal-950/20';
+  const loadingIconTone = tone === 'amber' ? 'text-amber-600' : 'text-teal-600';
+
   if (isLoading) {
     return (
-      <div className="flex min-h-[280px] flex-col items-center justify-center rounded-xl border border-dashed border-teal-200 bg-teal-50/70 p-8 text-center dark:border-teal-900 dark:bg-teal-950/20">
-        <Loader2 className="mb-4 h-9 w-9 animate-spin text-teal-600" aria-hidden="true" />
+      <div className={cn('flex min-h-[280px] flex-col items-center justify-center rounded-xl border border-dashed p-8 text-center', loadingTone)}>
+        <Loader2 className={cn('mb-4 h-9 w-9 animate-spin', loadingIconTone)} aria-hidden="true" />
         <h3 className="text-lg font-bold text-stone-800 dark:text-stone-100">
           Preparing your study material
         </h3>
@@ -47,10 +58,18 @@ function MaterialPanel({ copyLabel, isLoading, onCopy, output, emptyText }) {
 
   return (
     <div className="space-y-3">
-      <div className="flex justify-end">
+      <div className="flex flex-col gap-3 rounded-xl border border-stone-200 bg-stone-50/80 p-4 dark:border-stone-700 dark:bg-stone-900/70 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
+            Generated Material
+          </p>
+          <h3 className="mt-1 text-lg font-bold text-stone-800 dark:text-stone-100">{heading}</h3>
+        </div>
         <CopyButton label={copyLabel} onCopy={onCopy} />
       </div>
-      <article className="output-panel max-h-[620px] overflow-y-auto">{output}</article>
+      <article className="output-panel max-h-[620px] overflow-y-auto rounded-xl border border-stone-200 bg-white/90 p-5 shadow-sm dark:border-stone-700 dark:bg-stone-950/80 md:p-6">
+        {output}
+      </article>
     </div>
   );
 }
@@ -64,6 +83,8 @@ export default function StudyMaterialWorkspace({
   practiceQuestionLoading,
   questionBank,
   questionBankLoading,
+  studyPlan,
+  studyPlanLoading,
   workspaceRef,
 }) {
   return (
@@ -133,6 +154,7 @@ export default function StudyMaterialWorkspace({
             <MaterialPanel
               copyLabel="Copy Question"
               emptyText="Select a syllabus domain and click Generate Practice Question."
+              heading="Practice Interview Question"
               isLoading={practiceQuestionLoading}
               onCopy={() => onCopy(practiceQuestion, 'practice question')}
               output={practiceQuestion}
@@ -148,9 +170,27 @@ export default function StudyMaterialWorkspace({
             <MaterialPanel
               copyLabel="Copy Bank"
               emptyText="Choose your study focus and click Generate Question Bank."
+              heading="Interview Question Bank"
               isLoading={questionBankLoading}
               onCopy={() => onCopy(questionBank, 'question bank')}
               output={questionBank}
+            />
+          </div>
+          <div
+            aria-labelledby="material-tab-study-plan"
+            hidden={activeTab !== 'study-plan'}
+            id="material-panel-study-plan"
+            role="tabpanel"
+            tabIndex={0}
+          >
+            <MaterialPanel
+              copyLabel="Copy Plan"
+              emptyText="Set your days and hours, then generate a personalized study plan."
+              heading="Personalized Study Plan"
+              isLoading={studyPlanLoading}
+              onCopy={() => onCopy(studyPlan, 'study plan')}
+              output={studyPlan}
+              tone="amber"
             />
           </div>
         </div>

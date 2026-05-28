@@ -19,10 +19,10 @@ export default function Tabs({ activeTab, tabs, onTabChange }) {
   };
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white/85 shadow-soft backdrop-blur-md dark:border-stone-700 dark:bg-stone-900/80">
+    <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white/90 shadow-soft backdrop-blur-md dark:border-stone-700 dark:bg-stone-900/85">
       <div
         aria-label="AI action plan tools"
-        className="flex overflow-x-auto border-b border-stone-200 bg-stone-50 px-2 pt-2 dark:border-stone-700 dark:bg-stone-900"
+        className="flex overflow-x-auto border-b border-stone-200 bg-stone-50 px-3 pt-3 dark:border-stone-700 dark:bg-stone-900"
         role="tablist"
       >
         {tabs.map((tab, index) => (
@@ -30,8 +30,10 @@ export default function Tabs({ activeTab, tabs, onTabChange }) {
             aria-controls={`panel-${tab.id}`}
             aria-selected={activeTab === tab.id}
             className={cn(
-              'min-h-12 whitespace-nowrap border-b-2 border-transparent px-5 py-3 text-sm font-medium text-stone-600 transition sm:px-6 dark:text-stone-300',
-              activeTab === tab.id && 'border-teal-600 font-semibold text-teal-700 dark:text-teal-400',
+              'mb-2 mr-2 min-h-11 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition',
+              activeTab === tab.id
+                ? 'bg-teal-600 text-white shadow-md shadow-teal-600/20'
+                : 'bg-white text-stone-600 hover:bg-stone-100 dark:bg-stone-950 dark:text-stone-300 dark:hover:bg-stone-800',
             )}
             id={`tab-${tab.id}`}
             key={tab.id}
@@ -45,7 +47,7 @@ export default function Tabs({ activeTab, tabs, onTabChange }) {
           </button>
         ))}
       </div>
-      <div className="min-h-[300px] p-6 md:p-8">
+      <div className="min-h-[300px] bg-gradient-to-b from-white/30 to-transparent p-5 md:p-8 dark:from-stone-900/20">
         {tabs.map((tab) => (
           <div
             aria-labelledby={`tab-${tab.id}`}

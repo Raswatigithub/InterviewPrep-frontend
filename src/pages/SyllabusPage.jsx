@@ -32,7 +32,7 @@ export default function SyllabusPage() {
         <div className="w-full md:w-1/2">
           <SyllabusChart data={syllabusData} onSelectDomain={setSelectedDomain} />
         </div>
-        <div className="flex min-h-[400px] w-full flex-col rounded-xl border border-stone-200 bg-stone-50 p-6 dark:border-stone-700 dark:bg-stone-950 md:w-1/2">
+        <div className="flex min-h-[400px] w-full flex-col rounded-xl border border-stone-200 bg-stone-50 p-6 dark:border-white/5 dark:bg-slate-900/60 md:w-1/2">
           <div className="flex-1">
             <SyllabusDetails domain={selectedDomain} domainData={selectedDomainData} />
           </div>
