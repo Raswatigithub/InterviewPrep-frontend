@@ -2,13 +2,13 @@ import {
   BookOpen,
   CheckSquare,
   ClipboardList,
-  Compass,
+  // Compass,
   Focus,
   LayoutDashboard,
   PanelsTopLeft,
   Sparkles,
   House,
-  LayoutPanelTop,
+  // LayoutPanelTop,
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { cn } from '../utils/cn';
@@ -44,11 +44,11 @@ const navItems = [
     label: 'AI Tools',
     icon: Sparkles,
   },
-  {
-    to: '/workspace',
-    label: 'Workspace',
-    icon: LayoutPanelTop,
-  },
+  // {
+  //   to: '/workspace',
+  //   label: 'Workspace',
+  //   icon: LayoutPanelTop,
+  // },
   {
     to: '/checklist',
     label: 'Checklist',
@@ -112,7 +112,7 @@ export default function Navigation() {
           ))}
         </nav>
 
-        <div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-teal-100 bg-teal-50 p-4 dark:border-teal-500/25 dark:bg-teal-500/10">
+        {/* <div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-teal-100 bg-teal-50 p-4 dark:border-teal-500/25 dark:bg-teal-500/10">
           <p className="mb-2 flex items-center gap-2 text-sm font-bold text-teal-800 dark:text-teal-300">
             <Compass className="h-4 w-4" aria-hidden="true" />
             Workflow
@@ -120,7 +120,7 @@ export default function Navigation() {
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-400 font-mono">
             Pick a focus, generate material, then review it in the workspace.
           </p>
-        </div>
+        </div> */}
       </aside>
 
       <div className="sticky top-0 z-40 border-b border-stone-200 bg-white/90 px-3 py-3 backdrop-blur-xl dark:border-white/5 dark:bg-slate-950/60 lg:hidden">
